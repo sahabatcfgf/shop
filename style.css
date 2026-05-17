@@ -26,6 +26,15 @@ body { background: var(--bg); color: var(--dark); }
     width: 100%;
     max-width: 450px;
 }
+/* Mengatur gambar logo agar responsif di dalam Glass Box */
+.glass-box img {
+    width: 100%;            /* Mengikuti lebar maksimal kotak pembungkus */
+    max-width: 120px;       /* Batas ukuran maksimal gambar agar tidak kebesaran (bisa disesuaikan, misal: 100px - 150px) */
+    height: auto;           /* Menjaga proporsi tinggi gambar agar tidak gepeng */
+    margin: 0 auto 15px auto; /* Membuat gambar otomatis di tengah (center) dan memberi jarak ke tulisan di bawahnya */
+    display: block;         /* Mengubah sifat elemen menjadi blok agar fungsi margin auto bekerja sempurna */
+    object-fit: contain;    /* Memastikan gambar termuat utuh tanpa terpotong */
+}
 .glass-box h1 { font-size: 3rem; margin-bottom: 10px; }
 .glass-box h1 span { color: var(--primary); }
 .landing-btns { margin-top: 25px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
@@ -45,6 +54,20 @@ body { background: var(--bg); color: var(--dark); }
 .navbar { background: white; padding: 15px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
 .nav-flex { display: flex; justify-content: space-between; align-items: center; }
 .logo span { color: var(--primary); }
+/* Mengatur pembungkus logo di navbar */
+.navbar .logo {
+    display: flex;
+    align-items: center; 
+    gap: 10px;           
+    font-size: 1.5rem;   
+}
+
+/* Mengatur ukuran khusus gambar logo HANYA di dalam navbar */
+.navbar .logo img {
+    height: 40px;        
+    width: auto;         
+    object-fit: contain;
+}
 .nav-right button { 
     background: none; border: none; font-size: 1.2rem; margin-left: 15px; 
     cursor: pointer; color: var(--dark); transition: 0.3s;
