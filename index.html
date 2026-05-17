@@ -2,15 +2,10 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <!-- Meta Viewport Penting agar responsif & tombol bisa diklik di HP -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SahabatCFGF</title>
     <link rel="icon" type="image/png" href="sahabatcfgf.png">
-    
-    <!-- Link CSS Eksternal -->
     <link rel="stylesheet" href="style.css">
-    
-    <!-- Libraries -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -18,14 +13,11 @@
 </head>
 <body>
 
-    <!-- Landing Page (Sebelum Login) -->
     <section id="landing-page" class="landing-cover">
         <div class="glass-box animate__animated animate__zoomIn">
             <img src="sahabatcfgf.png" alt="Logo SahabatCFGF">
-            
             <h1>Sahabat<span>CFGF</span></h1>
             <p>Kebutuhan penting untuk menunjang proses <strong>diet</strong> anak-anak istimewa Ayah-Bunda!</p>
-            
             <div class="landing-btns">
                 <button type="button" onclick="openAuth('login')" class="btn-glow">Login</button>
                 <button type="button" onclick="openAuth('register')" class="btn-ghost">Daftar</button>
@@ -33,17 +25,45 @@
         </div>
     </section>
 
-    <!-- Halaman Toko (Setelah Login) -->
+    <div id="auth-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-content animate__animated animate__fadeInUp">
+            <button class="close-btn" onclick="closeAuth()"><i class="fas fa-times"></i></button>
+            
+            <div id="form-login" style="display:none;">
+                <h2>Selamat Datang!</h2>
+                <input type="text" id="log-username" placeholder="Username" class="input-form">
+                <input type="password" id="log-password" placeholder="Password" class="input-form">
+                <button onclick="doLogin()" class="btn-glow w-100">Masuk</button>
+            </div>
+
+            <div id="form-register" style="display:none;">
+                <h2>Buat Akun Baru</h2>
+                <input type="text" id="reg-nama" placeholder="Nama Lengkap" class="input-form">
+                <input type="email" id="reg-email" placeholder="Email Aktif" class="input-form">
+                <input type="text" id="reg-nohp" placeholder="Nomor WA/Telepon" class="input-form">
+                <input type="text" id="reg-username" placeholder="Username" class="input-form">
+                <input type="password" id="reg-password" placeholder="Password" class="input-form">
+                <button onclick="doRegister()" class="btn-glow w-100">Daftar Sekarang</button>
+            </div>
+            
+            <div id="form-otp" style="display:none;">
+                <h2>Verifikasi Email</h2>
+                <p>Masukkan kode OTP yang kami kirimkan ke email Anda.</p>
+                <input type="text" id="otp-code" placeholder="Kode OTP 6 Digit" class="input-form" maxlength="6">
+                <button onclick="verifyOTP()" class="btn-glow w-100">Verifikasi</button>
+            </div>
+        </div>
+    </div>
+
     <div id="main-store" style="display:none;">
         <nav class="navbar">
             <div class="container nav-flex">
-                <h2 class="logo"><img src="sahabatcfgf.png">Sahabat<span>CFGF</span></h2>
+                <h2 class="logo"><img src="sahabatcfgf.png" alt="Logo">Sahabat<span>CFGF</span></h2>
                 <div class="nav-right">
-                    <button class="btn-nav" onclick="toggleHistory()"><i class="fas fa-receipt"></i></button>
                     <button class="btn-cart" onclick="toggleCart()">
                         <i class="fas fa-shopping-bag"></i> <span id="cart-count">0</span>
                     </button>
-                    <button class="btn-logout" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i></button>
+                    <button class="btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
                 </div>
             </div>
         </nav>
@@ -55,68 +75,19 @@
         </div>
     </div>
 
-    <!-- Modal Autentikasi (Login/Register/OTP) -->
-    <div id="modal-auth" class="modal">
-        <div class="modal-card animate__animated animate__fadeInDown">
-            
-            <!-- Form Login -->
-            <div id="form-login">
-                <h3>Selamat Datang Ayah-Bunda!</h3>
-                <input type="text" id="l-user" placeholder="Username">
-                <input type="password" id="l-pass" placeholder="Password">
-                <button type="button" onclick="handleLogin()" class="btn-action">Masuk</button>
+    <div id="cart-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-content animate__animated animate__slideInRight" style="margin-left:auto; height:100vh; border-radius: 20px 0 0 20px;">
+            <button class="close-btn" onclick="toggleCart()"><i class="fas fa-times"></i></button>
+            <h2>Keranjang Belanja</h2>
+            <div id="cart-items" style="max-height: 60vh; overflow-y: auto; margin-bottom: 20px;">
+                </div>
+            <div class="cart-summary">
+                <h3 style="text-align: right;">Total: Rp <span id="cart-total">0</span></h3>
+                <button onclick="checkout()" class="btn-glow w-100" style="margin-top: 15px;">Checkout Pesanan</button>
             </div>
-            
-            <!-- Form Register -->
-            <div id="form-reg" style="display:none;">
-                <h3>Buat Akun Baru</h3>
-                <input type="text" id="r-nama" placeholder="Nama Lengkap">
-                <input type="email" id="r-email" placeholder="Email Aktif (Untuk OTP)">
-                <input type="tel" id="r-tel" placeholder="WhatsApp (628...)">
-                <input type="text" id="r-user" placeholder="Username">
-                <input type="password" id="r-pass" placeholder="Password">
-                <button type="button" onclick="handleRegister()" class="btn-action">Daftar Sekarang</button>
-            </div>
-            
-            <!-- Form OTP -->
-            <div id="form-otp" style="display:none;">
-                <h3>Verifikasi OTP</h3>
-                <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">Cek Inbox / Spam di Email Anda.</p>
-                <input type="text" id="v-otp" placeholder="Masukkan 6 Digit Kode">
-                <button type="button" onclick="handleVerify()" class="btn-action">Verifikasi</button>
-            </div>
-
-            <button type="button" class="btn-close-text" onclick="closeModal('modal-auth')">Tutup</button>
         </div>
     </div>
 
-    <!-- Modal Keranjang -->
-    <div id="modal-cart" class="modal">
-        <div class="modal-card wide">
-            <h3>Keranjang Saya</h3>
-            <div id="cart-list-items" class="cart-scroll"></div>
-            <div class="voucher-box">
-                <input type="text" id="v-code" placeholder="Punya Kode Voucher?">
-                <button type="button" onclick="applyVoucher()">Pakai</button>
-            </div>
-            <div class="cart-footer">
-                <p>Total: <strong id="cart-total">0</strong></p>
-                <button type="button" onclick="handleCheckout()" class="btn-checkout">Checkout & Bayar</button>
-            </div>
-            <button type="button" class="btn-close-text" onclick="closeModal('modal-cart')">Kembali Belanja</button>
-        </div>
-    </div>
-
-    <!-- Modal Riwayat -->
-    <div id="modal-history" class="modal">
-        <div class="modal-card wide">
-            <h3>Riwayat Transaksi</h3>
-            <div id="history-list" class="cart-scroll"></div>
-            <button type="button" class="btn-close-text" onclick="closeModal('modal-history')">Tutup</button>
-        </div>
-    </div>
-
-    <!-- Link JS Eksternal -->
     <script src="script.js"></script>
 </body>
 </html>

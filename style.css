@@ -1,137 +1,80 @@
-:root { 
-    --primary: #3498db; 
-    --accent: #ff4757; 
-    --success: #2ed573; 
-    --dark: #2f3542; 
-    --bg: #f1f2f6;
+:root {
+    --primary: #4A90E2;
+    --secondary: #F39C12;
+    --dark: #333;
+    --light: #f4f7f6;
+    --accent: #E74C3C;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
-body { background: var(--bg); color: var(--dark); }
-.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+body { background-color: var(--light); color: var(--dark); overflow-x: hidden; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+.w-100 { width: 100%; }
 
-/* ---------------- LANDING PAGE ---------------- */
-.landing-cover { 
-    height: 100vh; 
-    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); 
-    display: flex; align-items: center; justify-content: center; 
-    padding: 20px;
+/* --- LANDING PAGE --- */
+.landing-cover {
+    height: 100vh; width: 100%;
+    background: linear-gradient(135deg, rgba(74,144,226,0.8), rgba(243,156,18,0.8)), url('https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1920&q=80') center/cover;
+    display: flex; justify-content: center; align-items: center; padding: 20px;
 }
-.glass-box { 
-    background: rgba(255,255,255,0.95); 
-    padding: 40px 20px; 
-    border-radius: 25px; 
-    text-align: center; 
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    width: 100%;
-    max-width: 450px;
+.glass-box {
+    background: rgba(255, 255, 255, 0.9); padding: 40px; border-radius: 20px;
+    text-align: center; max-width: 500px; width: 100%; box-shadow: 0 15px 35px rgba(0,0,0,0.2);
 }
-/* Mengatur gambar logo agar responsif di dalam Glass Box */
 .glass-box img {
-    width: 100%;            /* Mengikuti lebar maksimal kotak pembungkus */
-    max-width: 120px;       /* Batas ukuran maksimal gambar agar tidak kebesaran (bisa disesuaikan, misal: 100px - 150px) */
-    height: auto;           /* Menjaga proporsi tinggi gambar agar tidak gepeng */
-    margin: 0 auto 15px auto; /* Membuat gambar otomatis di tengah (center) dan memberi jarak ke tulisan di bawahnya */
-    display: block;         /* Mengubah sifat elemen menjadi blok agar fungsi margin auto bekerja sempurna */
-    object-fit: contain;    /* Memastikan gambar termuat utuh tanpa terpotong */
+    width: 100%; max-width: 120px; height: auto;
+    margin: 0 auto 15px auto; display: block; object-fit: contain;
 }
-.glass-box h1 { font-size: 3rem; margin-bottom: 10px; }
+.glass-box h1 { font-size: 2.5rem; margin-bottom: 10px; color: var(--dark); }
 .glass-box h1 span { color: var(--primary); }
-.landing-btns { margin-top: 25px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.glass-box p { margin-bottom: 30px; color: #555; line-height: 1.6; }
+.landing-btns { display: flex; gap: 15px; justify-content: center; }
 
+/* --- BUTTONS --- */
+button { cursor: pointer; transition: 0.3s; font-weight: bold; }
 .btn-glow {
-    background: var(--primary); color: white; padding: 15px 30px;
-    border: none; border-radius: 12px; font-weight: bold; cursor: pointer;
-    box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4); width: 130px;
+    background: var(--primary); color: white; border: none; padding: 12px 25px;
+    border-radius: 30px; box-shadow: 0 4px 15px rgba(74,144,226,0.4); font-size: 1rem;
 }
+.btn-glow:hover { background: #357ABD; box-shadow: 0 6px 20px rgba(74,144,226,0.6); transform: translateY(-2px); }
 .btn-ghost {
-    background: transparent; color: var(--primary); padding: 15px 30px;
-    border: 2px solid var(--primary); border-radius: 12px; font-weight: bold; cursor: pointer;
-    width: 130px;
+    background: transparent; color: var(--primary); border: 2px solid var(--primary);
+    padding: 10px 25px; border-radius: 30px; font-size: 1rem;
 }
+.btn-ghost:hover { background: var(--primary); color: white; }
 
-/* ---------------- NAVBAR & LAYOUT ---------------- */
+/* --- NAVBAR --- */
 .navbar { background: white; padding: 15px 0; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
 .nav-flex { display: flex; justify-content: space-between; align-items: center; }
-.logo span { color: var(--primary); }
-/* Mengatur pembungkus logo di navbar */
-.navbar .logo {
-    display: flex;
-    align-items: center; 
-    gap: 10px;           
-    font-size: 1.5rem;   
-}
-
-/* Mengatur ukuran khusus gambar logo HANYA di dalam navbar */
-.navbar .logo img {
-    height: 40px;        
-    width: auto;         
-    object-fit: contain;
-}
-.nav-right button { 
-    background: none; border: none; font-size: 1.2rem; margin-left: 15px; 
-    cursor: pointer; color: var(--dark); transition: 0.3s;
-}
+.navbar .logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; }
+.navbar .logo img { height: 40px; width: auto; object-fit: contain; }
+.navbar .logo span { color: var(--primary); }
+.nav-right button { background: none; border: none; font-size: 1.2rem; margin-left: 15px; color: var(--dark); }
 .nav-right button:hover { color: var(--primary); }
 .btn-cart { position: relative; }
-#cart-count { 
-    position: absolute; top: -8px; right: -10px; background: var(--accent); 
-    color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 50%; font-weight: bold;
-}
+#cart-count { position: absolute; top: -8px; right: -10px; background: var(--accent); color: white; font-size: 0.7rem; padding: 2px 6px; border-radius: 50%; font-weight: bold; }
+
+/* --- STORE GRID --- */
 .store-layout { margin-top: 30px; margin-bottom: 50px; }
-
-/* ---------------- GRID PRODUK ---------------- */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
-.card { 
-    position: relative; background: white; padding: 15px; border-radius: 20px; 
-    transition: 0.3s; border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-}
-.card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-.card img { width: 100%; height: 200px; object-fit: cover; border-radius: 15px; cursor: pointer; }
-.badge-disc { 
-    position: absolute; top: 15px; left: 15px; background: var(--accent); color: white; 
-    padding: 5px 12px; border-radius: 10px; font-weight: bold; font-size: 0.8rem; z-index: 2;
-}
-.price-old { text-decoration: line-through; color: #a4b0be; font-size: 0.85rem; }
-.price-new { color: var(--success); font-weight: bold; font-size: 1.2rem; }
+.card { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s; padding-bottom: 15px; }
+.card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
+.card img { width: 100%; height: 200px; object-fit: cover; }
+.card-body { padding: 15px; }
+.card-body h3 { font-size: 1.2rem; margin-bottom: 5px; }
+.price-promo { color: var(--accent); font-weight: bold; font-size: 1.1rem; }
+.price-coret { text-decoration: line-through; color: #999; font-size: 0.9rem; margin-left: 10px; }
 
-.btn-add-stock { 
-    width: 100%; border: none; padding: 12px; border-radius: 12px; 
-    background: var(--primary); color: white; cursor: pointer; 
-    display: flex; justify-content: space-between; align-items: center; 
-    margin-top: 15px; font-weight: 500; transition: 0.3s;
-}
-.btn-add-stock:hover { background: #2980b9; }
-.stock-label { background: rgba(0,0,0,0.15); padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; }
+/* --- MODALS --- */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; display: flex; justify-content: center; align-items: center; }
+.modal-content { background: white; padding: 30px; border-radius: 20px; width: 90%; max-width: 400px; position: relative; }
+.close-btn { position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 1.5rem; color: #888; }
+.close-btn:hover { color: var(--accent); }
+.input-form { width: 100%; padding: 12px 15px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 10px; outline: none; font-size: 1rem; }
+.input-form:focus { border-color: var(--primary); }
 
-/* ---------------- MODALS & FORMS ---------------- */
-.modal { 
-    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-    background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 1000; 
-    align-items: center; justify-content: center; padding: 20px;
-}
-.modal-card { background: white; padding: 30px; border-radius: 25px; width: 100%; max-width: 400px; text-align: center;}
-.modal-card.wide { max-width: 600px; text-align: left;}
-.modal-card input { 
-    width: 100%; padding: 12px 15px; margin: 10px 0; border: 1px solid #ddd; 
-    border-radius: 10px; outline: none; transition: 0.3s;
-}
-.modal-card input:focus { border-color: var(--primary); box-shadow: 0 0 5px rgba(52, 152, 219, 0.3); }
-.btn-action, .btn-checkout { 
-    width: 100%; background: var(--success); color: white; border: none; 
-    padding: 15px; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px;
-}
-.btn-close-text { 
-    background: transparent; border: none; color: #888; margin-top: 15px; 
-    cursor: pointer; text-decoration: underline; font-size: 0.9rem;
-}
-
-/* ---------------- CART & VOUCHER ---------------- */
-.cart-scroll { max-height: 300px; overflow-y: auto; margin: 20px 0; padding-right: 10px; }
-.cart-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
-.voucher-box { display: flex; gap: 10px; margin-bottom: 20px; }
-.voucher-box button { background: var(--dark); color: white; border: none; padding: 0 20px; border-radius: 10px; cursor: pointer; }
-.cart-footer { display: flex; flex-direction: column; gap: 10px; font-size: 1.2rem; border-top: 2px solid #eee; padding-top: 15px;}
-
-/* Custom Toast SweetAlert */
-.colored-toast.swal2-icon-success { background-color: var(--success) !important; color: white !important; }
+/* --- CART ITEMS --- */
+.cart-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding: 10px 0; }
+.cart-item h4 { font-size: 1rem; margin-bottom: 5px; }
+.cart-item p { font-size: 0.85rem; color: #666; margin-bottom: 5px; }
+.cart-item input { width: 50px; padding: 5px; text-align: center; border: 1px solid #ccc; border-radius: 5px; }
