@@ -5,6 +5,7 @@
     <!-- Meta Viewport Penting agar responsif & tombol bisa diklik di HP -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SahabatCFGF</title>
+    <link rel="icon" type="image/png" href="sahabatcfgf.png">
     
     <!-- Link CSS Eksternal -->
     <link rel="stylesheet" href="style.css">
@@ -20,6 +21,7 @@
     <!-- Landing Page (Sebelum Login) -->
     <section id="landing-page" class="landing-cover">
         <div class="glass-box animate__animated animate__zoomIn">
+            <img src="sahabatcfgf.png">
             <h1>Sahabat<span>CFGF</span></h1>
             <p>Kebutuhan penting untuk menunjang proses <strong>diet</strong> anak-anak istimewa Ayah-Bunda!</p>
             <div class="landing-btns">
@@ -33,7 +35,7 @@
     <div id="main-store" style="display:none;">
         <nav class="navbar">
             <div class="container nav-flex">
-                <h2 class="logo">Sahabat<span>CFGF</span></h2>
+                <h2 class="logo"><img src="sahabatcfgf.png">Sahabat<span>CFGF</span></h2>
                 <div class="nav-right">
                     <button class="btn-nav" onclick="toggleHistory()"><i class="fas fa-receipt"></i></button>
                     <button class="btn-cart" onclick="toggleCart()">
@@ -57,7 +59,7 @@
             
             <!-- Form Login -->
             <div id="form-login">
-                <h3>Selamat Datang Kembali</h3>
+                <h3>Selamat Datang Ayah-Bunda!</h3>
                 <input type="text" id="l-user" placeholder="Username">
                 <input type="password" id="l-pass" placeholder="Password">
                 <button type="button" onclick="handleLogin()" class="btn-action">Masuk</button>
