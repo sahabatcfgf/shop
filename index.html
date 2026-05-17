@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <!-- Meta Viewport Penting agar responsif & tombol bisa diklik di HP -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SahabatCFGF</title>
+    
+    <!-- Link CSS Eksternal -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Libraries -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+
+    <!-- Landing Page (Sebelum Login) -->
+    <section id="landing-page" class="landing-cover">
+        <div class="glass-box animate__animated animate__zoomIn">
+            <h1>Sahabat<span>CFGF</span></h1>
+            <p>Kebutuhan penting untuk menunjang proses <strong>diet</strong> anak-anak istimewa Ayah-Bunda!</p>
+            <div class="landing-btns">
+                <button type="button" onclick="openAuth('login')" class="btn-glow">Login</button>
+                <button type="button" onclick="openAuth('register')" class="btn-ghost">Daftar</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Halaman Toko (Setelah Login) -->
+    <div id="main-store" style="display:none;">
+        <nav class="navbar">
+            <div class="container nav-flex">
+                <h2 class="logo">Sahabat<span>CFGF</span></h2>
+                <div class="nav-right">
+                    <button class="btn-nav" onclick="toggleHistory()"><i class="fas fa-receipt"></i></button>
+                    <button class="btn-cart" onclick="toggleCart()">
+                        <i class="fas fa-shopping-bag"></i> <span id="cart-count">0</span>
+                    </button>
+                    <button class="btn-logout" onclick="doLogout()"><i class="fas fa-sign-out-alt"></i></button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container store-layout">
+            <main class="product-content">
+                <div id="product-grid" class="grid"></div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal Autentikasi (Login/Register/OTP) -->
+    <div id="modal-auth" class="modal">
+        <div class="modal-card animate__animated animate__fadeInDown">
+            
+            <!-- Form Login -->
+            <div id="form-login">
+                <h3>Selamat Datang Kembali</h3>
+                <input type="text" id="l-user" placeholder="Username">
+                <input type="password" id="l-pass" placeholder="Password">
+                <button type="button" onclick="handleLogin()" class="btn-action">Masuk</button>
+            </div>
+            
+            <!-- Form Register -->
+            <div id="form-reg" style="display:none;">
+                <h3>Buat Akun Baru</h3>
+                <input type="text" id="r-nama" placeholder="Nama Lengkap">
+                <input type="email" id="r-email" placeholder="Email Aktif (Untuk OTP)">
+                <input type="tel" id="r-tel" placeholder="WhatsApp (628...)">
+                <input type="text" id="r-user" placeholder="Username">
+                <input type="password" id="r-pass" placeholder="Password">
+                <button type="button" onclick="handleRegister()" class="btn-action">Daftar Sekarang</button>
+            </div>
+            
+            <!-- Form OTP -->
+            <div id="form-otp" style="display:none;">
+                <h3>Verifikasi OTP</h3>
+                <p style="font-size: 0.8rem; color: #666; margin-bottom: 10px;">Cek Inbox / Spam di Email Anda.</p>
+                <input type="text" id="v-otp" placeholder="Masukkan 6 Digit Kode">
+                <button type="button" onclick="handleVerify()" class="btn-action">Verifikasi</button>
+            </div>
+
+            <button type="button" class="btn-close-text" onclick="closeModal('modal-auth')">Tutup</button>
+        </div>
+    </div>
+
+    <!-- Modal Keranjang -->
+    <div id="modal-cart" class="modal">
+        <div class="modal-card wide">
+            <h3>Keranjang Saya</h3>
+            <div id="cart-list-items" class="cart-scroll"></div>
+            <div class="voucher-box">
+                <input type="text" id="v-code" placeholder="Punya Kode Voucher?">
+                <button type="button" onclick="applyVoucher()">Pakai</button>
+            </div>
+            <div class="cart-footer">
+                <p>Total: <strong id="cart-total">0</strong></p>
+                <button type="button" onclick="handleCheckout()" class="btn-checkout">Checkout & Bayar</button>
+            </div>
+            <button type="button" class="btn-close-text" onclick="closeModal('modal-cart')">Kembali Belanja</button>
+        </div>
+    </div>
+
+    <!-- Modal Riwayat -->
+    <div id="modal-history" class="modal">
+        <div class="modal-card wide">
+            <h3>Riwayat Transaksi</h3>
+            <div id="history-list" class="cart-scroll"></div>
+            <button type="button" class="btn-close-text" onclick="closeModal('modal-history')">Tutup</button>
+        </div>
+    </div>
+
+    <!-- Link JS Eksternal -->
+    <script src="script.js"></script>
+</body>
+</html>
