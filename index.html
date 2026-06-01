@@ -25,33 +25,33 @@
         </div>
     </section>
 
-    <div id="modal-auth" class="modal-overlay" style="display:none;">
+    <div id="auth-modal" class="modal-overlay" style="display:none;">
         <div class="modal-content animate__animated animate__fadeInUp">
-            <button class="close-btn" onclick="closeModal('modal-auth')"><i class="fas fa-times"></i></button>
+            <button class="close-btn" onclick="closeAuth()"><i class="fas fa-times"></i></button>
             
-            <form id="form-login" onsubmit="event.preventDefault(); handleLogin();" style="display:none;">
+            <form id="form-login" onsubmit="event.preventDefault(); doLogin();" style="display:none;">
                 <h2>Selamat Datang!</h2>
-                <p style="margin-bottom:15px; color:#666; font-size:0.9rem;">Silahkan login menggunakan akun Anda</p>
-                <input type="text" id="l-user" placeholder="Username" class="input-form" autocomplete="username">
-                <input type="password" id="l-password" placeholder="Password" class="input-form" autocomplete="current-password">
+                <p style="font-size:0.85rem; color:#666; margin-bottom:15px;">Silahkan masuk ke akun Anda</p>
+                <input type="text" id="log-username" placeholder="Username" class="input-form" required>
+                <input type="password" id="log-password" placeholder="Password" class="input-form" required>
                 <button type="submit" class="btn-glow w-100">Masuk</button>
             </form>
 
-            <form id="form-reg" onsubmit="event.preventDefault(); handleRegister();" style="display:none;">
+            <form id="form-register" onsubmit="event.preventDefault(); doRegister();" style="display:none;">
                 <h2>Buat Akun Baru</h2>
-                <p style="margin-bottom:15px; color:#666; font-size:0.9rem;">Lengkapi data diri pendaftaran</p>
-                <input type="text" id="r-nama" placeholder="Nama Lengkap" class="input-form" autocomplete="name">
-                <input type="email" id="r-email" placeholder="Email Aktif" class="input-form" autocomplete="email">
-                <input type="text" id="r-tel" placeholder="Nomor WA/Telepon" class="input-form" autocomplete="tel">
-                <input type="text" id="r-user" placeholder="Username" class="input-form" autocomplete="username">
-                <input type="password" id="r-password" placeholder="Password" class="input-form" autocomplete="new-password">
+                <p style="font-size:0.85rem; color:#666; margin-bottom:15px;">Lengkapi data diri pendaftaran</p>
+                <input type="text" id="reg-nama" placeholder="Nama Lengkap" class="input-form" required>
+                <input type="email" id="reg-email" placeholder="Email Aktif" class="input-form" required>
+                <input type="text" id="reg-nohp" placeholder="Nomor WA/Telepon" class="input-form" required>
+                <input type="text" id="reg-username" placeholder="Username" class="input-form" required>
+                <input type="password" id="reg-password" placeholder="Password" class="input-form" required>
                 <button type="submit" class="btn-glow w-100">Daftar Sekarang</button>
             </form>
             
-            <form id="form-otp" onsubmit="event.preventDefault(); handleVerify();" style="display:none;">
+            <form id="form-otp" onsubmit="event.preventDefault(); verifyOTP();" style="display:none;">
                 <h2>Verifikasi Email</h2>
-                <p style="margin-bottom:15px; color:#666; font-size:0.9rem;">Masukkan kode OTP yang kami kirimkan ke kotak masuk email Anda.</p>
-                <input type="text" id="v-otp" placeholder="Kode OTP 6 Digit" class="input-form" maxlength="6" autocomplete="one-time-code">
+                <p style="font-size:0.85rem; color:#666; margin-bottom:15px;">Masukkan kode OTP yang kami kirimkan ke email Anda.</p>
+                <input type="text" id="otp-code" placeholder="Kode OTP 6 Digit" class="input-form" maxlength="6" required>
                 <button type="submit" class="btn-glow w-100">Verifikasi</button>
             </form>
         </div>
@@ -62,11 +62,10 @@
             <div class="container nav-flex">
                 <h2 class="logo"><img src="sahabatcfgf.png" alt="Logo">Sahabat<span>CFGF</span></h2>
                 <div class="nav-right">
-                    <button onclick="toggleHistory()"><i class="fas fa-history"></i> Riwayat</button>
                     <button class="btn-cart" onclick="toggleCart()">
                         <i class="fas fa-shopping-bag"></i> <span id="cart-count">0</span>
                     </button>
-                    <button onclick="doLogout()"><i class="fas fa-sign-out-alt"></i></button>
+                    <button class="btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
                 </div>
             </div>
         </nav>
@@ -78,30 +77,33 @@
         </div>
     </div>
 
-    <div id="modal-cart" class="modal-overlay" style="display:none;">
-        <div class="modal-content animate__animated animate__slideInRight" style="margin-left:auto; height:100vh; border-radius: 20px 0 0 20px;">
-            <button class="close-btn" onclick="closeModal('modal-cart')"><i class="fas fa-times"></i></button>
+    <div id="cart-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-content animate__animated animate__slideInRight" style="margin-left:auto; height:100vh; border-radius: 20px 0 0 20px; max-width: 420px;">
+            <button class="close-btn" onclick="toggleCart()"><i class="fas fa-times"></i></button>
             <h2>Keranjang Belanja</h2>
             
-            <div id="cart-list-items" style="max-height: 50vh; overflow-y: auto; margin-bottom: 15px;"></div>
+            <div id="cart-items" style="max-height: 45vh; overflow-y: auto; margin-bottom: 10px;"></div>
             
-            <div class="voucher-box">
-                <input type="text" id="v-code" placeholder="Kode Voucher Diskon" class="input-form">
-                <button onclick="applyVoucher()" class="btn-ghost" style="padding: 10px 15px; border-radius:10px;">Gunakan</button>
+            <div class="voucher-area">
+                <input type="text" id="voucher-input" placeholder="Kode Voucher Diskon" class="input-form" style="margin-bottom:0;">
+                <button type="button" onclick="applyVoucher()" class="btn-ghost" style="padding:10px 20px; white-space:nowrap; border-radius:10px;">Gunakan</button>
             </div>
 
-            <div class="cart-summary" style="border-top:2px solid #eee; padding-top:15px;">
-                <h3 style="text-align: right; margin-bottom: 15px;">Total: <span id="cart-total" style="color:var(--accent);">Rp 0</span></h3>
-                <button onclick="handleCheckout()" class="btn-glow w-100">Checkout Pesanan</button>
+            <div class="cart-summary">
+                <div class="breakdown-row">
+                    <span>Subtotal Produk:</span>
+                    <span id="summary-subtotal">Rp 0</span>
+                </div>
+                <div class="breakdown-row" style="color: var(--accent);">
+                    <span>Potongan Voucher:</span>
+                    <span id="summary-discount">- Rp 0</span>
+                </div>
+                <div class="breakdown-row grand-total">
+                    <span>Total Akhir:</span>
+                    <span id="cart-total" style="color: var(--accent);">Rp 0</span>
+                </div>
+                <button onclick="checkout()" class="btn-glow w-100" style="margin-top: 15px;">Checkout Pesanan</button>
             </div>
-        </div>
-    </div>
-
-    <div id="modal-history" class="modal-overlay" style="display:none;">
-        <div class="modal-content animate__animated animate__fadeInUp" style="max-width:500px;">
-            <button class="close-btn" onclick="closeModal('modal-history')"><i class="fas fa-times"></i></button>
-            <h2 style="margin-bottom:20px;"><i class="fas fa-history" style="color:var(--primary);"></i> Riwayat Transaksi</h2>
-            <div id="history-list" class="history-scroll"></div>
         </div>
     </div>
 
