@@ -40,7 +40,9 @@ async function doRegister() {
     Swal.fire({ title: 'Mendaftarkan...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
 
     try {
-        let res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'registerUser', nama, email, no_hp, username, password_hash: passHash }) });
+        let res = await fetch(API_URL, { method: 'POST', headers: {
+        'Content-Type': 'text/plain' // Tambahkan baris ini untuk menghindari blokir CORS
+    },body: JSON.stringify({ action: 'registerUser', nama, email, no_hp, username, password_hash: passHash }) });
         let json = await res.json();
         
         if (json.status === 'success') {
