@@ -29,31 +29,31 @@
         <div class="modal-content animate__animated animate__fadeInUp">
             <button class="close-btn" onclick="closeModal('modal-auth')"><i class="fas fa-times"></i></button>
             
-            <div id="form-login" style="display:none;">
+            <form id="form-login" onsubmit="event.preventDefault(); handleLogin();" style="display:none;">
                 <h2>Selamat Datang!</h2>
                 <p style="margin-bottom:15px; color:#666; font-size:0.9rem;">Silahkan login menggunakan akun Anda</p>
-                <input type="text" id="l-user" placeholder="Username" class="input-form">
-                <input type="password" id="l-password" placeholder="Password" class="input-form">
-                <button onclick="handleLogin()" class="btn-glow w-100">Masuk</button>
-            </div>
+                <input type="text" id="l-user" placeholder="Username" class="input-form" autocomplete="username">
+                <input type="password" id="l-password" placeholder="Password" class="input-form" autocomplete="current-password">
+                <button type="submit" class="btn-glow w-100">Masuk</button>
+            </form>
 
-            <div id="form-reg" style="display:none;">
+            <form id="form-reg" onsubmit="event.preventDefault(); handleRegister();" style="display:none;">
                 <h2>Buat Akun Baru</h2>
                 <p style="margin-bottom:15px; color:#666; font-size:0.9rem;">Lengkapi data diri pendaftaran</p>
-                <input type="text" id="r-nama" placeholder="Nama Lengkap" class="input-form">
-                <input type="email" id="r-email" placeholder="Email Aktif" class="input-form">
-                <input type="text" id="r-tel" placeholder="Nomor WA/Telepon" class="input-form">
-                <input type="text" id="r-user" placeholder="Username" class="input-form">
-                <input type="password" id="r-password" placeholder="Password" class="input-form">
-                <button onclick="handleRegister()" class="btn-glow w-100">Daftar Sekarang</button>
-            </div>
+                <input type="text" id="r-nama" placeholder="Nama Lengkap" class="input-form" autocomplete="name">
+                <input type="email" id="r-email" placeholder="Email Aktif" class="input-form" autocomplete="email">
+                <input type="text" id="r-tel" placeholder="Nomor WA/Telepon" class="input-form" autocomplete="tel">
+                <input type="text" id="r-user" placeholder="Username" class="input-form" autocomplete="username">
+                <input type="password" id="r-password" placeholder="Password" class="input-form" autocomplete="new-password">
+                <button type="submit" class="btn-glow w-100">Daftar Sekarang</button>
+            </form>
             
-            <div id="form-otp" style="display:none;">
+            <form id="form-otp" onsubmit="event.preventDefault(); handleVerify();" style="display:none;">
                 <h2>Verifikasi Email</h2>
                 <p style="margin-bottom:15px; color:#666; font-size:0.9rem;">Masukkan kode OTP yang kami kirimkan ke kotak masuk email Anda.</p>
-                <input type="text" id="v-otp" placeholder="Kode OTP 6 Digit" class="input-form" maxlength="6">
-                <button onclick="handleVerify()" class="btn-glow w-100">Verifikasi</button>
-            </div>
+                <input type="text" id="v-otp" placeholder="Kode OTP 6 Digit" class="input-form" maxlength="6" autocomplete="one-time-code">
+                <button type="submit" class="btn-glow w-100">Verifikasi</button>
+            </form>
         </div>
     </div>
 

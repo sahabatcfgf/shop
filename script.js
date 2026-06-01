@@ -35,7 +35,11 @@ async function handleLogin() {
     const payload = { username: userStr, password: CryptoJS.SHA256(passStr).toString() };
     
     try {
-        const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'login', payload }) });
+        const res = await fetch(API_URL, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'login', payload }) 
+        });
         const data = await res.json();
         
         if(data.status === 'success') { 
@@ -67,7 +71,11 @@ async function handleRegister() {
     };
 
     try {
-        const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'register', payload }) });
+        const res = await fetch(API_URL, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'register', payload }) 
+        });
         const data = await res.json();
 
         if(data.status === 'success') {
@@ -88,7 +96,11 @@ async function handleVerify() {
     Swal.fire({ title: 'Verifikasi...', didOpen: () => { Swal.showLoading() }, allowOutsideClick: false });
 
     try {
-        const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'verify', payload: { id_user: tempId, otp: otp } }) });
+        const res = await fetch(API_URL, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'verify', payload: { id_user: tempId, otp: otp } }) 
+        });
         const data = await res.json();
 
         if(data.status === 'success') {
@@ -117,7 +129,11 @@ function showStore() {
 async function loadData() {
     Swal.fire({ title: 'Memuat Produk...', didOpen: () => { Swal.showLoading() }, allowOutsideClick: false });
     try {
-        const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getProducts' }) });
+        const res = await fetch(API_URL, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'getProducts' }) 
+        });
         const json = await res.json();
         
         if (json.status === 'success') {
@@ -128,7 +144,7 @@ async function loadData() {
             Swal.fire('Error Backend', json.message, 'error');
         }
     } catch(err) { 
-        Swal.fire('Error Network', 'Gagal terhubung ke server atau URL salah.', 'error'); 
+        Swal.fire('Error Network', 'Gagal terhubung ke server.', 'error'); 
     }
 }
 
@@ -254,7 +270,11 @@ async function applyVoucher() {
     Swal.fire({ title: 'Memverifikasi Voucher...', didOpen: () => { Swal.showLoading() }, allowOutsideClick: false });
 
     try {
-        const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'checkVoucher', payload: { code } }) });
+        const res = await fetch(API_URL, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'checkVoucher', payload: { code } }) 
+        });
         const data = await res.json();
         
         if(data.status === 'success') {
@@ -283,7 +303,11 @@ async function handleCheckout() {
     const payload = { id_user: user.id_user, items: items };
 
     try {
-        const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'checkout', payload }) });
+        const res = await fetch(API_URL, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'checkout', payload }) 
+        });
         const data = await res.json();
         
         if(data.status === 'success') {
@@ -311,7 +335,11 @@ async function toggleHistory() {
     document.getElementById('history-list').innerHTML = '<p style="text-align:center; padding:20px;">Memuat riwayat transaksi...</p>';
     
     try {
-        const res = await fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'getHistory', payload: { id_user: user.id_user } }) });
+        const res = await fetch(API_URL, { 
+            method: 'POST', 
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'getHistory', payload: { id_user: user.id_user } }) 
+        });
         const data = await res.json();
         
         if(data.status === 'success') {
