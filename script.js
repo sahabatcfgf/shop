@@ -146,7 +146,8 @@ function renderGrid() {
                 <img src="${gambarUtama}" onerror="this.src='https://placehold.co/400'">
                 <div class="card-body">
                     <h3>${p.nama_produk}</h3>
-                    <p style="font-size:0.9rem; color:#777; margin-bottom:10px;">${p.kategori}</p>
+                    <p style="font-size:0.85rem; color:#777; margin-bottom:5px;"><b>Kategori:</b> ${p.kategori}</p>
+                    <p style="font-size:0.85rem; color:#555; margin-bottom:12px; line-height:1.4; min-height:40px;">${p.keterangan_produk || '-'}</p>
                     ${hargaTampil}
                     ${btnHtml}
                 </div>
@@ -164,30 +165,32 @@ function addToCart(kode) {
     const p = products.find(x => x.kode_produk === kode);
     if (!p) return;
 
-    let opsiVarian = '';
-    if (p.varian_produk && p.varian_produk.trim() !== '-' && p.varian_produk !== '') {
-        p.varian_produk.split(',').forEach(v => { opsiVarian += `<option value="${v.trim()}">${v.trim()}</option>`; });
-    } else { opsiVarian = `<option value="Original">Original</option>`; }
-
     Swal.fire({
         title: p.nama_produk,
         html: `
             <div style="text-align: left;">
-                <label>Pilih Varian:</label>
-                <select id="swal-varian" class="swal2-input">${opsiVarian}</select>
-                <label style="margin-top:15px; display:block;">Jumlah (Stok: ${p.stok_produk}):</label>
-                <input type="number" id="swal-qty" class="swal2-input" value="1" min="1" max="${p.stok_produk}">
+                <label style="margin-bottom:8px; display:block;">Jumlah (Stok: ${p.stok_produk}):</label>
+                <input type="number" id="swal-qty" class="swal2-input" value="1" min="1" max="${p.stok_produk}" style="width:100%; margin:0;">
             </div>`,
         showCancelButton: true, confirmButtonText: 'Tambah',
-        preConfirm: () => ({ varian: document.getElementById('swal-varian').value, qty: parseInt(document.getElementById('swal-qty').value) })
+        preConfirm: () => parseInt(document.getElementById('swal-qty').value)
     }).then((res) => {
         if (res.isConfirmed) {
-            let { varian, qty } = res.value;
+            let qty = res.value;
             if (qty > p.stok_produk || qty < 1) return Swal.fire('Error', 'Jumlah tidak valid atau melebihi stok!', 'error');
 
-            let exist = cart.findIndex(c => c.kode_produk === kode && c.varian === varian);
-            if (exist > -1) { cart[exist].qty += qty; } else { cart.push({ ...p, varian, qty }); }
+            let exist = cart.findIndex(c => c.kode_produk === kode);
+            if (exist > -1) { 
+                if (cart[exist].qty + qty > p.stok_produk) {
+                    Swal.fire('Peringatan', 'Melebihi batas stok', 'warning');
+                } else {
+                    cart[exist].qty += qty; 
+                }
+            } else { 
+                cart.push({ ...p, qty }); 
+            }
             updateCartCount();
+            Swal.fire({ icon: 'success', title: 'Masuk Keranjang', toast: true, position: 'top-end', showConfirmButton: false, timer: 1500 });
         }
     });
 }
@@ -207,7 +210,7 @@ function renderCart() {
                 <div>
                     <h4>${c.nama_produk}</h4>
                     <p style="color:var(--accent); font-weight:bold;">Rp ${subtotalItem.toLocaleString('id-ID')}</p>
-                    <p style="font-size:0.8rem; color:#888;">${c.varian} | Rp ${harga.toLocaleString('id-ID')}</p>
+                    <p style="font-size:0.8rem; color:#888;">Rp ${harga.toLocaleString('id-ID')} / pcs</p>
                 </div>
                 <div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px;">
                     <div class="qty-wrapper">
@@ -275,7 +278,6 @@ async function checkout() {
     let subtotalAll = 0;
     let rincianWA = '';
     
-    // Desain tabel mewah untuk Invoice Email
     let rincianHTML = `
     <table style="width:100%; border-collapse:collapse; font-size:14px; margin-top:15px; color:#333;">
         <thead>
@@ -294,24 +296,21 @@ async function checkout() {
         let subtotalItem = harga * c.qty;
         subtotalAll += subtotalItem;
         
-        // Kalkulasi harga per item setelah diskon voucher jika ada
         let itemPotongan = subtotalItem * (discountPercent / 100);
         let subtotalFinalItem = subtotalItem - itemPotongan;
         let diskonTxtWA = discountPercent > 0 ? ` (diskon ${discountPercent}%)` : '';
         let diskonTxtHTML = discountPercent > 0 ? `<br><small style="color:#E74C3C;">Hemat ${discountPercent}% via Voucher</small>` : '';
 
-        // Formatisasi Baris WA persis sesuai template permintaan
-        rincianWA += `${i+1}. ${c.nama_produk} (${c.varian}) [Qty: ${c.qty}] Rp ${subtotalFinalItem.toLocaleString('id-ID')}${diskonTxtWA}\n`;
+        rincianWA += `${i+1}. ${c.nama_produk} [Qty: ${c.qty}] Rp ${subtotalFinalItem.toLocaleString('id-ID')}${diskonTxtWA}\n`;
         
-        // Formatisasi Baris Tabel Email Invoice
         rincianHTML += `
             <tr style="border-bottom:1px solid #ddd;">
-                <td style="padding:12px 10px;"><b>${c.nama_produk}</b><br><span style="color:#666; font-size:12px;">Varian: ${c.varian}</span>${diskonTxtHTML}</td>
+                <td style="padding:12px 10px;"><b>${c.nama_produk}</b>${diskonTxtHTML}</td>
                 <td style="padding:12px 10px; text-align:center;">${c.qty} pcs</td>
                 <td style="padding:12px 10px; text-align:right; font-weight:bold;">Rp ${subtotalFinalItem.toLocaleString('id-ID')}</td>
             </tr>`;
         
-        cartPayload.push({ kode_produk: c.kode_produk, nama_produk: c.nama_produk, varian: c.varian, qty: c.qty, subtotal: subtotalFinalItem });
+        cartPayload.push({ kode_produk: c.kode_produk, nama_produk: c.nama_produk, qty: c.qty, subtotal: subtotalFinalItem });
     });
 
     let totalPotonganGlobal = subtotalAll * (discountPercent / 100);
@@ -332,7 +331,6 @@ async function checkout() {
     let noHpCust = sessionStorage.getItem('nohp_user') || '-';
     let idUser = sessionStorage.getItem('id_user');
 
-    // Pembuatan string link API WhatsApp dengan rincian data dinamis pesanan baru Anda
     let pesanWA = `Halo Sahabat CFGF, saya sudah melakukan pemesanan melalui Website.\n\n` +
                   `*ID Transaksi:* ${idTransaksi}\n` +
                   `*Nama Penerima:* ${namaCust}\n` +
