@@ -12,7 +12,43 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
-
+<!-- NAVBAR -->
+    <nav class="navbar" id="navbar" style="display:none;">
+        <div class="nav-container">
+            <h2 class="logo"><img src="sahabatcfgf.png" alt="Logo"> SahabatCFGF</h2>
+            <div class="hamburger" onclick="toggleMobileNav()"><i class="fas fa-bars"></i></div>
+            <div class="nav-links">
+                <div class="dropdown">
+                    <span>Kategori <i class="fas fa-caret-down"></i></span>
+                    <div class="dropdown-content" id="cat-dropdown"></div>
+                </div>
+                <button onclick="toggleCart()" class="btn-glow"><i class="fas fa-shopping-bag"></i></button>
+            </div>
+        </div>
+        <div class="mobile-nav" id="mobile-nav">
+            <div id="cat-mobile"></div>
+        </div>
+    </nav>
+<!-- MAIN STORE -->
+    <div id="main-store" style="display:none;">
+        <div class="container" style="max-width:1200px; margin:auto;">
+            <div id="product-grid" class="grid"></div>
+        </div>
+    </div>
+<!-- MODAL DETAIL PRODUK -->
+    <div id="detail-modal" class="modal">
+        <div class="modal-content">
+            <button onclick="closeModal()" style="float:right; border:none; background:none; cursor:pointer;">&times;</button>
+            <div class="slider" id="slider-img">
+                <img src="" id="img-display">
+            </div>
+            <h2 id="det-nama">Nama Produk</h2>
+            <p id="det-kat" style="color:var(--primary); font-size:0.9rem;"></p>
+            <h3 id="det-harga" style="color:var(--accent); margin:10px 0;"></h3>
+            <p id="det-desc" style="color:#666; margin-bottom:20px;"></p>
+            <button onclick="addToCartDirect()" class="btn-glow" style="width:100%;">Tambah ke Keranjang</button>
+        </div>
+    </div>
     <section id="landing-page" class="landing-cover">
         <div class="glass-box animate__animated animate__zoomIn">
             <img src="sahabatcfgf.png" alt="Logo SahabatCFGF">
@@ -75,6 +111,37 @@
                 <div id="product-grid" class="grid"></div>
             </main>
         </div>
+    </div>
+
+    <div id="product-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-content product-modal-content animate__animated animate__zoomIn">
+            <button class="close-btn" onclick="closeProductModal()"><i class="fas fa-times"></i></button>
+            
+            <div class="slider-container" onclick="openLightbox()">
+                <img id="modal-img" src="" alt="Gambar Produk">
+                <button id="btn-prev" class="slider-btn left" onclick="event.stopPropagation(); prevSlide()"><i class="fas fa-chevron-left"></i></button>
+                <button id="btn-next" class="slider-btn right" onclick="event.stopPropagation(); nextSlide()"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            
+            <h2 id="modal-title" style="margin-bottom: 5px;">Nama Produk</h2>
+            <div id="modal-price" class="price-promo" style="font-size: 1.3rem; margin-bottom: 5px;">Rp 0</div>
+            
+            <div class="product-desc" id="modal-desc">Deskripsi produk...</div>
+            
+            <div style="margin-top: 15px;">
+                <label style="display:block; margin-bottom: 8px; font-weight: bold; color: var(--dark);">
+                    Jumlah Pembelian (Sisa Stok: <span id="modal-stock-text" style="color:var(--accent);">0</span>):
+                </label>
+                <input type="number" id="modal-qty" class="input-form" value="1" min="1" style="margin-bottom: 15px;">
+                <input type="hidden" id="modal-kode">
+                <button onclick="confirmAddToCart()" class="btn-glow w-100"><i class="fas fa-cart-plus"></i> Masukkan Keranjang</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img id="lightbox-img" src="" onclick="event.stopPropagation();">
     </div>
 
     <div id="cart-modal" class="modal-overlay" style="display:none;">
