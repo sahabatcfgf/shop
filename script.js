@@ -138,7 +138,7 @@ function renderGrid() {
         }
 
         // --- FITUR PENANGANAN MULTIPLE IMAGE URLS (DENGAN PEMISAH KOMA) ---
-        let gambarUtama = 'https://via.placeholder.com/300'; // Default jika kosong
+        let gambarUtama = 'https://placehold.co/400'; // Default jika kosong
         if (p.url_gambar && p.url_gambar.toString().trim() !== '') {
             // Memisahkan string berdasarkan koma, lalu mengambil url index pertama [0]
             let arrayGambar = p.url_gambar.toString().split(',');
@@ -147,7 +147,7 @@ function renderGrid() {
 
         grid.innerHTML += `
             <div class="card animate__animated animate__fadeIn">
-                <img src="${gambarUtama}" alt="${p.nama_produk}" onerror="this.src='https://via.placeholder.com/300'">
+                <img src="${gambarUtama}" alt="${p.nama_produk}" onerror="this.src='https://placehold.co/400'">
                 <div class="card-body">
                     <h3>${p.nama_produk}</h3>
                     <p style="font-size:0.9rem; color:#777; margin-bottom:10px;">${p.kategori}</p>
