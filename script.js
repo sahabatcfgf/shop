@@ -4,6 +4,15 @@ let products = [];
 let cart = [];
 let tempEmailAuth = '';
 
+// --- CEK SESI LOGIN SAAT HALAMAN DIMUAT ---
+window.onload = () => {
+    if (sessionStorage.getItem('id_user')) {
+        document.getElementById('landing-page').style.display = 'none';
+        document.getElementById('main-store').style.display = 'block';
+        loadData(); // Otomatis load produk jika sudah login
+    }
+};
+
 // --- AUTHENTICATION FLOW ---
 function openAuth(type) {
     document.getElementById('auth-modal').style.display = 'flex';
@@ -11,7 +20,10 @@ function openAuth(type) {
     document.getElementById('form-register').style.display = type === 'register' ? 'block' : 'none';
     document.getElementById('form-otp').style.display = 'none';
 }
-function closeAuth() { document.getElementById('auth-modal').style.display = 'none'; }
+
+function closeAuth() { 
+    document.getElementById('auth-modal').style.display = 'none'; 
+}
 
 async function doRegister() {
     let nama = document.getElementById('reg-nama').value;
@@ -122,9 +134,17 @@ function renderGrid() {
             hargaTampil = `<span class="price-promo">Rp ${p.harga_promo.toLocaleString('id-ID')}</span> <span class="price-coret">Rp ${p.harga_asli.toLocaleString('id-ID')}</span>`;
         }
 
+        // --- FITUR PENANGANAN MULTIPLE IMAGE URLS (DENGAN PEMISAH KOMA) ---
+        let gambarUtama = 'https://via.placeholder.com/300'; // Default jika kosong
+        if (p.url_gambar && p.url_gambar.toString().trim() !== '') {
+            // Memisahkan string berdasarkan koma, lalu mengambil url index pertama [0]
+            let arrayGambar = p.url_gambar.toString().split(',');
+            gambarUtama = arrayGambar[0].trim(); 
+        }
+
         grid.innerHTML += `
             <div class="card animate__animated animate__fadeIn">
-                <img src="${p.url_gambar}" alt="${p.nama_produk}" onerror="this.src='https://via.placeholder.com/300'">
+                <img src="${gambarUtama}" alt="${p.nama_produk}" onerror="this.src='https://via.placeholder.com/300'">
                 <div class="card-body">
                     <h3>${p.nama_produk}</h3>
                     <p style="font-size:0.9rem; color:#777; margin-bottom:10px;">${p.kategori}</p>
@@ -254,7 +274,7 @@ async function checkout() {
     let namaCust = sessionStorage.getItem('nama_user');
     let emailCust = sessionStorage.getItem('email_user');
     let idUser = sessionStorage.getItem('id_user');
-    let nomorAdminWA = '628999833375'; // UBAH NOMOR INI
+    let nomorAdminWA = '628999833375'; 
 
     let pesanWA = `Halo Admin SahabatCFGF, saya ingin memesan:\n\n*ID Transaksi:* ${idTransaksi}\n*Nama:* ${namaCust}\n\n*Rincian Pesanan:*\n${rincianWA}\n*Total Bayar: Rp ${totalAll.toLocaleString('id-ID')}*\n\nMohon info total ongkir. Terima kasih!`;
     let linkWA = `https://wa.me/${nomorAdminWA}?text=${encodeURIComponent(pesanWA)}`;
