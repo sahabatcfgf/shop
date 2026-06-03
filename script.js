@@ -464,14 +464,15 @@ async function checkout() {
                     title: 'Sukses!',
                     html: `
                         <div style="text-align: center;">
-                            <h2>TOTAL TAGIHAN Rp. ${totalAkhirPemesanan.toLocaleString('id-ID')}</h2>
+                            <h2>TOTAL TAGIHAN<br><strong>Rp. ${totalAkhirPemesanan.toLocaleString('id-ID')}</strong></h2>
                             <p>Scan QR berikut untuk pembayaran:</p>
                             <img src="QRIS_SahabatCFGF.jpeg" alt="QRIS" class="qris-img" style="max-width: 100%; border-radius: 8px; margin-bottom: 10px;"><br>
-                            <button class="button btn-glow"><a href="QRIS_SahabatCFGF.jpeg" download="QRIS_ahabatCFGF.jpeg">
+                            <button class="button btn-glow" style="margin-bottom: 10px;"><a href="QRIS_SahabatCFGF.jpeg" download="QRIS_ahabatCFGF.jpeg">
                                 Download QRIS</a>
-                            </button><br>
+                            </button>
+
+                            <p style="margin-bottom: 5px; ">Atau Transfer Bank:</p>
                             <div style="background: #f8f9fa; padding: 15px; border-radius: 8px;margin-bottom: 15px; border: 1px solid #eee;">
-                                <p style="margin-bottom: 5px; ">Atau Transfer Bank:</p>
                                 <h4 style="margin: 0; color: #0056b3;">BCA</h4>
                                 <h3 style="margin: 5px 0;">7015306700</h3>
                                 <p style="margin: 0 0 10px 0;">a.n Fiky Alannuari</p>
