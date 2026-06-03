@@ -3,194 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>SahabatCFGF - E-Commerce Pilihan Ayah Bunda</title>
+    <title>SahabatCFGF</title>
     <link rel="icon" type="image/png" href="sahabatcfgf.png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 </head>
 <body>
-
-    <nav class="navbar">
-        <div class="container nav-flex">
-            <h2 class="logo" onclick="showSection('home')"><img src="sahabatcfgf.png" alt="Logo">Sahabat<span>CFGF</span></h2>
-            
-            <div class="hamburger" onclick="toggleMenu()">
-                <i class="fas fa-bars"></i>
-            </div>
-
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#" onclick="showSection('home')">Home</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropbtn">Kategori <i class="fas fa-chevron-down"></i></a>
-                    <div class="dropdown-content" id="categoryMenu">
-                        </div>
-                </li>
-                <li><a href="#" onclick="showSection('about')">About Us</a></li>
-                <li><a href="#" onclick="showSection('contact')">Contact</a></li>
-                <li id="authNav"><a href="#" onclick="openAuth('login')"><i class="fas fa-user"></i> Login</a></li>
-            </ul>
-
-            <div class="nav-icons">
-                <div class="cart-icon-wrapper" onclick="toggleCart()">
-                    <i class="fas fa-shopping-bag"></i>
-                    <span id="cart-count">0</span>
+    <div id="main-store" style="display:none;">
+        <nav class="navbar">
+            <div class="container nav-flex">
+                <h2 class="logo"><img src="sahabatcfgf.png" alt="Logo">Sahabat<span>CFGF</span></h2>
+                <div class="nav-right">
+                    <button class="btn-cart" onclick="toggleCart()">
+                        <i class="fas fa-shopping-bag"></i> <span id="cart-count">0</span>
+                    </button>
+                    <button class="btn-logout" onclick="logout()"><i class="fas fa-sign-out-alt"></i></button>
                 </div>
             </div>
+        </nav>
+
+        <div class="container store-layout">
+            <main class="product-content">
+                <div id="product-grid" class="grid"></div>
+            </main>
         </div>
-    </nav>
+    </div>
 
-    <main class="container main-content">
-        
-        <section id="home-section" class="app-section animated fadeIn">
-            <div class="hero-banner">
-                <div class="hero-text">
-                    <h1>Nutrisi Terbaik Tanpa Gluten & Kasein</h1>
-                    <p>Solusi diet sehat, aman, dan lezat untuk buah hati tercinta Ayah dan Bunda.</p>
-                </div>
+    <div id="product-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-content product-modal-content animate__animated animate__zoomIn">
+            <button class="close-btn" onclick="closeProductModal()"><i class="fas fa-times"></i></button>
+            
+            <div class="slider-container" onclick="openLightbox()">
+                <img id="modal-img" src="" alt="Gambar Produk">
+                <button id="btn-prev" class="slider-btn left" onclick="event.stopPropagation(); prevSlide()"><i class="fas fa-chevron-left"></i></button>
+                <button id="btn-next" class="slider-btn right" onclick="event.stopPropagation(); nextSlide()"><i class="fas fa-chevron-right"></i></button>
             </div>
-
-            <div class="category-container">
-                <div class="category-scroll" id="categoryPills">
-                    </div>
-            </div>
-
-            <h3 class="section-title">Katalog Produk Pilihan</h3>
-            <div class="product-grid" id="product-container">
-                </div>
-        </section>
-
-        <section id="about-section" class="app-section animated fadeIn" style="display:none;">
-            <div class="card-box-large">
-                <h2>Tentang SahabatCFGF</h2>
-                <p>SahabatCFGF hadir sebagai wujud nyata kepedulian kami terhadap pemenuhan gizi seimbang bagi anak-anak berkebutuhan khusus, khususnya yang menjalankan pola diet <strong>Casein-Free Gluten-Free (CFGF)</strong>.</p>
-                <p>Kami memahami tantangan besar yang dihadapi Ayah dan Bunda dalam menyajikan makanan lezat namun tetap aman terhindar dari kandungan pemicu alergi atau intoleransi gizi. Seluruh produk di etalase kami telah melewati proses seleksi ketat kualitas komposisi bahan demi memastikan keamanan konsumsi harian anak istimewa Anda.</p>
-            </div>
-        </section>
-
-        <section id="contact-section" class="app-section animated fadeIn" style="display:none;">
-            <div class="contact-grid">
-                <div class="card-box">
-                    <h2>Hubungi Kami</h2>
-                    <p>Punya pertanyaan seputar produk atau konsultasi pola diet sehat anak? Silahkan kirimkan pesan kepada tim admin responsif kami.</p>
-                    <form id="contactForm" onsubmit="event.preventDefault();">
-                        <div class="form-group">
-                            <label>Nama Lengkap</label>
-                            <input type="text" id="contact-nama" class="input-form" placeholder="Contoh: Bunda Raisa" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Nomor Telepon / WA</label>
-                            <input type="tel" id="contact-phone" class="input-form" placeholder="Contoh: 0812345678" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Isi Pesan Anda</label>
-                            <textarea id="contact-msg" class="input-form" rows="4" placeholder="Tuliskan detail pertanyaan Ayah-Bunda..." required></textarea>
-                        </div>
-                        <div class="contact-buttons">
-                            <button type="button" onclick="submitContact('wa')" class="btn-wa"><i class="fab fa-whatsapp"></i> Kirim ke WhatsApp</button>
-                            <button type="button" onclick="submitContact('email')" class="btn-email"><i class="fas fa-envelope"></i> Kirim ke Email</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="contact-info card-box">
-                    <h3>Informasi Operasional</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> Jakarta, Indonesia</p>
-                    <p><i class="fas fa-clock"></i> Senin - Sabtu: 08.00 - 17.00 WIB</p>
-                    <p><i class="fas fa-envelope"></i> sahabatcfgf@gmail.com</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <div class="modal" id="detail-modal">
-        <div class="modal-content large">
-            <button class="close-modal-btn" onclick="closeDetail()"><i class="fas fa-times"></i></button>
-            <div class="detail-grid">
-                <div class="carousel-container">
-                    <img id="detail-main-img" src="" alt="Main Product Image">
-                    <div class="carousel-thumbs" id="carouselThumbs"></div>
-                </div>
-                <div class="detail-info">
-                    <h2 id="detail-title"></h2>
-                    <div class="detail-meta">
-                        <span id="detail-sold"></span>
-                        <span id="detail-rating"></span>
-                    </div>
-                    <div class="price-box-detail">
-                        <span id="detail-normal-price" class="old-price"></span>
-                        <div class="promo-flex">
-                            <span id="detail-promo-price" class="new-price"></span>
-                            <span id="detail-discount-tag" class="discount-pill"></span>
-                        </div>
-                    </div>
-                    <p id="detail-stock" class="stock-info"></p>
-                    <hr>
-                    <h4>Deskripsi Produk:</h4>
-                    <p id="detail-desc" style="color: #555; font-size: 0.95rem; line-height: 1.5;"></p>
-                    <button id="detail-cart-btn" class="btn-glow w-100" style="margin-top:20px;"></button>
-                </div>
+            
+            <h2 id="modal-title" style="margin-bottom: 5px;">Nama Produk</h2>
+            <div id="modal-price" class="price-promo" style="font-size: 1.3rem; margin-bottom: 3px;">Rp 0</div>
+            <div id="modal-weight" style="font-size: 0.95rem; color: #666; margin-bottom: 8px; font-weight: 500;">Berat: 0 gram</div>
+            
+            <div class="product-desc" id="modal-desc">Deskripsi produk...</div>
+            
+            <div style="margin-top: 15px;">
+                <label style="display:block; margin-bottom: 8px; font-weight: bold; color: var(--dark);">
+                    Jumlah Pembelian (Sisa Stok: <span id="modal-stock-text" style="color:var(--accent);">0</span>):
+                </label>
+                <input type="number" id="modal-qty" class="input-form" value="1" min="1" style="margin-bottom: 15px;">
+                <input type="hidden" id="modal-kode">
+                <button onclick="confirmAddToCart()" class="btn-glow w-100"><i class="fas fa-cart-plus"></i> Masukkan Keranjang</button>
             </div>
         </div>
     </div>
 
-    <div class="cart-drawer" id="cartDrawer">
-        <div class="drawer-header">
-            <h3>Keranjang Belanja</h3>
-            <button class="close-drawer" onclick="toggleCart()"><i class="fas fa-times"></i></button>
-        </div>
-        <div class="drawer-body">
-            <div id="cart-items-container"></div>
-            
-            <div class="voucher-box">
-                <input type="text" id="voucher-input" placeholder="Kode Voucher Potongan" class="input-form-sm">
-                <button onclick="applyVoucherCode()" class="btn-sm">Gunakan</button>
-            </div>
-
-            <div class="shipping-box card-box-sm">
-                <h4><i class="fas fa-truck"></i> Hitung Ongkos Kirim</h4>
-                <select id="ship-kota" class="input-form-sm" onchange="updateShippingDistricts()">
-                    <option value="">-- Pilih Kota --</option>
-                </select>
-                <select id="ship-kecamatan" class="input-form-sm" onchange="updateShippingSubdistricts()" disabled>
-                    <option value="">-- Pilih Kecamatan --</option>
-                </select>
-                <select id="ship-kelurahan" class="input-form-sm" onchange="calculateActiveShippingFee()" disabled>
-                    <option value="">-- Pilih Kelurahan --</option>
-                </select>
-            </div>
-
-            <div class="summary-box">
-                <div class="sum-row"><span>Subtotal Produk:</span><span id="sum-subtotal">Rp 0</span></div>
-                <div class="sum-row text-discount"><span>Potongan Voucher:</span><span id="sum-discount">- Rp 0</span></div>
-                <div class="sum-row"><span>Biaya Ongkir:</span><span id="sum-shipping">Rp 0</span></div>
-                <hr>
-                <div class="sum-row total-row"><span>Total Akhir:</span><span id="sum-grand" class="text-accent">Rp 0</span></div>
-            </div>
-            <button onclick="executeCheckout()" class="btn-glow w-100" style="margin-top:15px;">Checkout Pesanan</button>
-        </div>
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img id="lightbox-img" src="" onclick="event.stopPropagation();">
     </div>
 
-    <div class="modal" id="auth-modal">
-        <div class="modal-content transparent">
-            <button class="close-modal-btn" style="color:white;" onclick="closeAuth()"><i class="fas fa-times"></i></button>
+    <div id="cart-modal" class="modal-overlay" style="display:none;">
+        <div class="modal-content animate__animated animate__slideInRight" style="margin-left:auto; height:100vh; border-radius: 20px 0 0 20px; max-width: 420px;">
+            <button class="close-btn" onclick="toggleCart()"><i class="fas fa-times"></i></button>
+            <h2>Keranjang Belanja</h2>
             
-            <div class="auth-box card-box active-form" id="form-login">
-                <h3>Masuk Akun</h3>
-                <input type="email" id="login-email" class="input-form" placeholder="Alamat Email" required>
-                <input type="password" id="login-pass" class="input-form" placeholder="Kata Sandi" required>
-                <button onclick="doLoginProcess()" class="btn-glow w-100">Masuk</button>
-                <p class="auth-switch">Belum punya akun? <a href="#" onclick="switchAuthForm('register')">Daftar Sekarang</a></p>
+            <div id="cart-items" style="max-height: 45vh; overflow-y: auto; margin-bottom: 10px;"></div>
+            
+            <div class="voucher-area">
+                <input type="text" id="voucher-input" placeholder="Kode Voucher Diskon" class="input-form" style="margin-bottom:0;">
+                <button type="button" onclick="applyVoucher()" class="btn-ghost" style="padding:10px 20px; white-space:nowrap; border-radius:10px;">Gunakan</button>
             </div>
 
-            <div class="auth-box card-box" id="form-register" style="display:none;">
-                <h3>Daftar Akun Baru</h3>
-                <input type="text" id="reg-nama" class="input-form" placeholder="Nama Lengkap" required>
-                <input type="email" id="reg-email" class="input-form" placeholder="Alamat Email" required>
-                <input type="tel" id="reg-phone" class="input-form" placeholder="Nomor Telepon/WA" required>
-                <input type="password" id="reg-pass" class="input-form" placeholder="Buat Kata Sandi" required>
-                <button onclick="doRegisterProcess()" class="btn-glow w-100">Daftar</button>
-                <p class="auth-switch">Sudah memiliki akun? <a href="#" onclick="switchAuthForm('login')">Login</a></p>
+            <div class="cart-summary">
+                <div class="breakdown-row">
+                    <span>Subtotal Produk:</span>
+                    <span id="summary-subtotal">Rp 0</span>
+                </div>
+                <div class="breakdown-row" style="color: var(--accent);">
+                    <span>Potongan Voucher:</span>
+                    <span id="summary-discount">- Rp 0</span>
+                </div>
+                <div class="breakdown-row">
+                    <span>Total Berat:</span>
+                    <span id="summary-weight">0 gram</span>
+                </div>
+                <div class="breakdown-row">
+                    <span>Ongkos Kirim:</span>
+                    <span id="summary-shipping">Rp 0</span>
+                </div>
+                <div class="breakdown-row grand-total">
+                    <span>Total Akhir:</span>
+                    <span id="cart-total" style="color: var(--accent);">Rp 0</span>
+                </div>
+                <button onclick="checkout()" class="btn-glow w-100" style="margin-top: 15px;">Checkout Pesanan</button>
             </div>
         </div>
     </div>
