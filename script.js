@@ -482,7 +482,7 @@ async function checkout() {
 
                             <p style="font-size: 0.9em; color: #555;">
                                 Nota belanja terkirim ke email.<br>
-                                <strong>Harap screenshot bukti transfer Anda!</strong>
+                                <strong>Harap screenshot bukti transfer Anda sebesar Rp ${totalAkhirPemesanan.toLocaleString('id-ID')}</strong>
                             </p>
                             <p style="font-size: 0.85em; color: #888; margin-top: 15px;">
                                 Mengarahkan ke WhatsApp Admin...
@@ -492,7 +492,7 @@ async function checkout() {
                     showConfirmButton: true,
                     confirmButtonText: 'Lanjut ke WhatsApp',
                     confirmButtonColor: '#25D366',
-                    // timer: 60000, 
+                    timer: 60000,
                     timerProgressBar: true
                 }).then(() => {
                     // Logika reset keranjang bawaan Anda
@@ -508,7 +508,15 @@ async function checkout() {
                     toggleCart();
                     
                     // Buka link WhatsApp
+                    // window.open(linkWA, '_blank');
+                    
+                    if (result.isConfirmed) {
+                    // Jika user KLIK tombol "Lanjut ke WhatsApp" -> Buka di tab baru
                     window.open(linkWA, '_blank');
+                    } else if (result.dismiss === Swal.DismissReason.timer) {
+                    // Jika user DIAM SAJA sampai 5 detik habis -> Alihkan di tab yang sama (Anti-Blokir)
+                    window.location.href = linkWA;
+                    }
                 });
             } else {
                 Swal.fire({
