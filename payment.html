@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SahabatCFGF</title>
+    <link rel="icon" type="image/png" href="sahabatcfgf.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <div id="main-store" style="display:none;">
+        <nav class="navbar">
+            <div class="container nav-flex">
+                <a href="https://sahabatcfgf.github.io/shop/" class="btn-glow"><h2 class="logo"><img src="sahabatcfgf.png" alt="Logo">Sahabat<span stlye="color:black;">CFGF</span></h2></a>
+            </div>
+        </nav>
+    </div>
+
+    <div style="text-align: center;">
+        <p>Scan kode berikut untuk pembayaran:</p>
+        <img src="QRIS_SahabatCFGF.jpeg" alt="QRIS" class="qris-img" style="max-width: 100%; border-radius: 8px; margin-bottom: 15px;">
+        <br>
+        <a href="QRIS_SahabatCFGF.jpeg" download="QRIS_ahabatCFGF.jpeg" class="btn-glow">
+            Download QRIS
+        </a>
+        <p style="margin-bottom: 5px;">Atau Transfer Bank:</p>
+        <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #eee;">
+            <h4 style="margin: 0; color: #0056b3;">BCA</h4>
+            <h3 style="margin: 5px 0;">7015306700</h3>
+            <p style="margin: 0 0 10px 0;">a.n Fiky Alannuari</p>
+            <button onclick="copyText('7015306700')" class="btn-ghost">
+                📋 Salin Rekening
+            </button>
+        </div>
+
+        <p style="font-size: 0.9em; color: #555;">
+            Nota belanja lihat di email!<br>
+            <strong>Harap screenshot bukti transfer Anda!</strong>
+        </p>
+    </div>
+
+    <script>
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                // Notifikasi kecil (Toast) di pojok kanan atas
+                Swal.fire({
+                    toast: true,
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'No. Rekening '+text+' berhasil disalin!',
+                    showConfirmButton: false,
+                    timer: 2000,
+                    timerProgressBar: true
+                });
+            }).catch(err => {
+                // Antisipasi jika browser memblokir atau ada error
+                console.error("Gagal menyalin teks: ", err);
+                alert("Gagal menyalin otomatis. Silakan salin manual: " + text);
+            });
+        }
+    </script>
+</body>
+</html>
