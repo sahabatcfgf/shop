@@ -33,7 +33,7 @@ button { cursor: pointer; transition: all 0.3s ease; font-weight: bold; }
 .nav-flex { display: flex; justify-content: space-between; align-items: center; }
 .navbar .logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; color: var(--primary); }
 .navbar .logo img { height: 40px; width: auto; object-fit: contain; }
-.navbar .logo span { color: var(--secondary); }
+.navbar .logo span { color: var(--primary); }
 .nav-right button { background: none; border: none; font-size: 1.3rem; margin-left: 15px; color: #475569; }
 .nav-right button:hover { color: var(--primary); }
 .btn-cart { position: relative; }
