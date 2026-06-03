@@ -509,7 +509,7 @@ async function checkout() {
                     
                     // Buka link WhatsApp
                     // window.open(linkWA, '_blank');
-                    
+
                     if (result.isConfirmed) {
                     // Jika user KLIK tombol "Lanjut ke WhatsApp" -> Buka di tab baru
                     window.open(linkWA, '_blank');
@@ -517,6 +517,7 @@ async function checkout() {
                     // Jika user DIAM SAJA sampai 5 detik habis -> Alihkan di tab yang sama (Anti-Blokir)
                     window.location.href = linkWA;
                     }
+                    
                 });
             } else {
                 Swal.fire({
