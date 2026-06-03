@@ -50,7 +50,7 @@ button { cursor: pointer; transition: all 0.3s ease; font-weight: bold; }
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; margin-top: 20px; }
 .card { background: white; border-radius: 15px; overflow: hidden; border: 1px solid #e2e8f0; transition: 0.3s; padding-bottom: 15px; display: flex; flex-direction: column; justify-content: space-between; }
 .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.05); border-color: #cbd5e1; }
-.card img { width: 100%; height: 200px; object-fit: cover; cursor: pointer; border-bottom: 1px solid #f1f5f9; }
+.card img { width: 100%; height: 400px; object-fit: cover; cursor: pointer; border-bottom: 1px solid #f1f5f9; }
 .card-body { padding: 15px; }
 .card-body h3 { font-size: 1.1rem; margin-bottom: 5px; cursor: pointer; color: var(--dark); height: 45px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;}
 .card-body h3:hover { color: var(--primary); }
@@ -92,3 +92,6 @@ button { cursor: pointer; transition: all 0.3s ease; font-weight: bold; }
 
 /* --- HISTORY CARD --- */
 .history-card { background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 15px; margin-bottom: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02); }
+
+/* --- CUSTOM --- */
+.qris-img { max-width: 100%; max-height: 100%; object-fit: contain; }

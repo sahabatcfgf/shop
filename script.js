@@ -442,7 +442,7 @@ async function checkout() {
                   `*Diskon Voucher:* -Rp ${totalPotonganGlobal.toLocaleString('id-ID')}\n` +
                   `*Ongkir (${shippingMultiplier}kg):* Rp ${shippingFee.toLocaleString('id-ID')}\n\n` +
                   `*TOTAL TAGIHAN: Rp ${totalAkhirPemesanan.toLocaleString('id-ID')}*\n\n` +
-                  `Mohon informasi nomor rekening pembayarannya. Terimakasih!`;
+                  `_Screenshot pembayaran terlampir._\nTerimakasih!`;
 
     let linkWA = `https://wa.me/628999833375?text=${encodeURIComponent(pesanWA)}`;
 
@@ -458,15 +458,69 @@ async function checkout() {
         let res = await fetch(API_URL, { method: 'POST', body: JSON.stringify(payloadData) });
         let json = await res.json();
 
-        if (json.status === 'success') {
-            Swal.fire('Sukses!', 'Nota belanja terkirim ke email, mengarahkan ke WhatsApp Admin...', 'success').then(() => {
-                cart = []; discountPercent = 0; maxVoucherDiscount = 0; appliedVoucherCode = '';
-                document.getElementById('voucher-input').value = '';
-                renderCart(); updateCartCount(); toggleCart();
-                window.open(linkWA, '_blank');
-            });
-        } else Swal.fire('Gagal Menyimpan', json.message, 'error');
-    } catch (err) { Swal.fire('Error Server', 'Tidak dapat memproses transaksi.', 'error'); }
+    if (json.status === 'success') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Sukses!',
+                    html: `
+                        <div style="text-align: center;">
+                            <p>Scan kode berikut untuk pembayaran:</p>
+                            <img src="QRIS_SahabatCFGF.jpeg" alt="QRIS" class="qris-img" style="max-width: 100%; border-radius: 8px; margin-bottom: 15px;">
+                            
+                            <p style="margin-bottom: 5px;">Atau Transfer Bank:</p>
+                            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #eee;">
+                                <h4 style="margin: 0; color: #0056b3;">BCA</h4>
+                                <h3 style="margin: 5px 0;">7015306700</h3>
+                                <p style="margin: 0 0 10px 0;">a.n Fiky Alannuari</p>
+                                <button onclick="copyText('7015306700')" style="padding: 8px 15px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
+                                    📋 Salin No. Rekening
+                                </button>
+                            </div>
+
+                            <p style="font-size: 0.9em; color: #555;">
+                                Nota belanja terkirim ke email.<br>
+                                <strong>Harap screenshot bukti transfer Anda!</strong>
+                            </p>
+                            <p style="font-size: 0.85em; color: #888; margin-top: 15px;">
+                                Mengarahkan ke WhatsApp Admin...
+                            </p>
+                        </div>
+                    `,
+                    showConfirmButton: true,
+                    confirmButtonText: 'Lanjut ke WhatsApp',
+                    confirmButtonColor: '#25D366',
+                    timer: 10000, 
+                    timerProgressBar: true
+                }).then(() => {
+                    // Logika reset keranjang bawaan Anda
+                    cart = []; 
+                    discountPercent = 0; 
+                    maxVoucherDiscount = 0; 
+                    appliedVoucherCode = '';
+                    document.getElementById('voucher-input').value = '';
+                    
+                    // Update tampilan UI
+                    renderCart(); 
+                    updateCartCount(); 
+                    toggleCart();
+                    
+                    // Buka link WhatsApp
+                    window.open(linkWA, '_blank');
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Gagal Menyimpan',
+                    text: json.message
+                });
+            }
+        } catch (err) { 
+            Swal.fire({
+                icon: 'error',
+                title: 'Error Server',
+                text: 'Tidak dapat memproses transaksi.'
+            }); 
+        }
 }
 
 // --- RIWAYAT TRANSAKSI (HISTORY) ---
