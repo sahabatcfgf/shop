@@ -78,14 +78,14 @@
     </div>
 
     <div id="product-modal" class="modal-overlay" style="display:none;">
-        <div class="modal-content product-modal-content animate__animated animate__zoomIn">
-            <button class="close-btn" onclick="closeProductModal()"><i class="fas fa-times"></i></button>
-            
+        <div class="modal-content product-modal-content animate__animated animate__zoomIn">            
             <div class="slider-container" onclick="openLightbox()">
                 <img id="modal-img" src="" alt="Gambar Produk">
                 <button id="btn-prev" class="slider-btn left" onclick="event.stopPropagation(); prevSlide()"><i class="fas fa-chevron-left"></i></button>
                 <button id="btn-next" class="slider-btn right" onclick="event.stopPropagation(); nextSlide()"><i class="fas fa-chevron-right"></i></button>
             </div>
+            
+            <button class="close-btn" onclick="closeProductModal()"><i class="fas fa-times"></i></button>
             
             <h2 id="modal-title" style="margin-bottom: 5px;">Nama Produk</h2>
             <div id="modal-price" class="price-promo" style="font-size: 1.3rem; margin-bottom: 3px;">Rp 0</div>
