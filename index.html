@@ -68,10 +68,10 @@
             <div id="form-register" style="display:none;">
                 <h2 style="margin-bottom:20px; color:var(--dark);">Daftar Akun Baru</h2>
                 <input type="text" id="reg-nama" class="input-form" placeholder="Nama Lengkap" required>
-                <input type="email" id="reg-email" class="input-form" placeholder="Alamat Email Aktif" required>
+                <input type="email" id="reg-email" class="input-form" placeholder="Alamat Email Aktif (OTP)" required>
                 <input type="tel" id="reg-nohp" class="input-form" placeholder="No WhatsApp (diawali 62)" pattern="^62[0-9]{7,15}$" title="Nomor WhatsApp wajib diawali dengan angka 62!" required>
-                <input type="text" id="reg-username" class="input-form" placeholder="Buat Username (Tanpa spasi)" required>
-                <input type="password" id="reg-password" class="input-form" placeholder="Buat Kata Sandi" required>
+                <input type="text" id="reg-username" class="input-form" placeholder="Buat Username (Minimal 6 karakter tanpa spasi)" pattern="^(?=.*[a-z])(?=.*\d)[a-z0-9]{6,}$" title="Username hanya boleh menggunakan huruf kecil (a-z) dan angka (0-9) tanpa spasi minimal 6 karakter!" required>
+                <input type="password" id="reg-password" class="input-form" placeholder="Buat Kata Sandi (Minimal 8 karakter)" pattern="^(?=.*[A-Za-z])(?=.*\d).{8,}$" title="Kata sandi wajib mengandung kombinasi huruf dan angka, minimal 8 karakter kombinasi." required>
                 <button onclick="doRegister()" class="btn-glow w-100">Daftar Sekarang</button>
                 <p style="text-align:center; margin-top:15px; font-size:14px;">Sudah punya akun? <a href="#" onclick="openAuth('login')" style="color:var(--primary); font-weight:bold;">Masuk</a></p>
             </div>
