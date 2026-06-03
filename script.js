@@ -536,22 +536,23 @@ async function checkout() {
 }
 
 function copyText(text) {
-    navigator.clipboard.writeText(text).then(() => {
-        // Notifikasi kecil (Toast) di pojok kanan atas
-        Swal.fire({
-            toast: true,
-            position: 'top-end',
-            icon: 'success',
-            title: 'No. Rekening '+ text +' berhasil disalin!',
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true
-        });
-    }).catch(err => {
-        // Antisipasi jika browser memblokir atau ada error
-        console.error("Gagal menyalin teks: ", err);
-        alert("Gagal menyalin otomatis. Silakan salin manual: " + text);
-    });
+    navigator.clipboard.writeText(text);
+    // .then(() => {
+    //     // Notifikasi kecil (Toast) di pojok kanan atas
+    //     Swal.fire({
+    //         toast: true,
+    //         position: 'top-end',
+    //         icon: 'success',
+    //         title: 'No. Rekening '+ text +' berhasil disalin!',
+    //         showConfirmButton: false,
+    //         timer: 2000,
+    //         timerProgressBar: true
+    //     });
+    // }).catch(err => {
+    //     // Antisipasi jika browser memblokir atau ada error
+    //     console.error("Gagal menyalin teks: ", err);
+    //     alert("Gagal menyalin otomatis. Silakan salin manual: " + text);
+    // });
 }
 
 // --- RIWAYAT TRANSAKSI (HISTORY) ---
