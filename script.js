@@ -492,7 +492,7 @@ async function checkout() {
                     showConfirmButton: true,
                     confirmButtonText: 'Lanjut ke WhatsApp',
                     confirmButtonColor: '#25D366',
-                    timer: 10000, 
+                    // timer: 60000, 
                     timerProgressBar: true
                 }).then(() => {
                     // Logika reset keranjang bawaan Anda
