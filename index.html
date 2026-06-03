@@ -69,7 +69,7 @@
                 <h2 style="margin-bottom:20px; color:var(--dark);">Daftar Akun Baru</h2>
                 <input type="text" id="reg-nama" class="input-form" placeholder="Nama Lengkap" required>
                 <input type="email" id="reg-email" class="input-form" placeholder="Alamat Email Aktif" required>
-                <input type="tel" id="reg-nohp" class="input-form" placeholder="No WhatsApp" required>
+                <input type="tel" id="reg-nohp" class="input-form" placeholder="No WhatsApp (diawali 62)" pattern="^62[0-9]{7,15}$" title="Nomor WhatsApp wajib diawali dengan angka 62!" required>
                 <input type="text" id="reg-username" class="input-form" placeholder="Buat Username (Tanpa spasi)" required>
                 <input type="password" id="reg-password" class="input-form" placeholder="Buat Kata Sandi" required>
                 <button onclick="doRegister()" class="btn-glow w-100">Daftar Sekarang</button>
