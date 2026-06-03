@@ -31,9 +31,9 @@ button { cursor: pointer; transition: all 0.3s ease; font-weight: bold; }
 /* --- NAVBAR --- */
 .navbar { background: white; padding: 15px 0; position: sticky; top: 0; z-index: 40; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
 .nav-flex { display: flex; justify-content: space-between; align-items: center; }
-.navbar .logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; color: var(--primary); }
-.navbar img { height: 40px; width: auto; object-fit: contain; }
-.navbar h2 span{ color: var(--primary); }
+.navbar .logo { display: flex; align-items: center; gap: 10px; font-size: 1.5rem; }
+.navbar .logo img { height: 40px; width: auto; object-fit: contain; }
+.navbar .logo span { color: var(--primary); }
 .nav-right button { background: none; border: none; font-size: 1.3rem; margin-left: 15px; color: #475569; }
 .nav-right button:hover { color: var(--primary); }
 .btn-cart { position: relative; }
