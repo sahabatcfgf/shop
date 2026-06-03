@@ -466,7 +466,10 @@ async function checkout() {
                         <div style="text-align: center;">
                             <p>Scan kode berikut untuk pembayaran:</p>
                             <img src="QRIS_SahabatCFGF.jpeg" alt="QRIS" class="qris-img" style="max-width: 100%; border-radius: 8px; margin-bottom: 15px;">
-                            
+                            <br>
+                            <a href="QRIS_SahabatCFGF.jpeg" download="QRIS_ahabatCFGF.jpeg" style="display: inline-block; padding: 8px 15px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; margin-bottom: 20px; font-weight: bold; font-size: 0.9em;">
+                            Download QRIS
+                            </a>
                             <p style="margin-bottom: 5px;">Atau Transfer Bank:</p>
                             <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #eee;">
                                 <h4 style="margin: 0; color: #0056b3;">BCA</h4>
