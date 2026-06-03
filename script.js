@@ -465,7 +465,7 @@ async function checkout() {
                     html: `
                         <div style="text-align: center;">
                             <p>Scan QR berikut untuk pembayaran:</p>
-                            <img src="QRIS_SahabatCFGF.jpeg" alt="QRIS" class="qris-img" style="max-width: 440.5px; border-radius: 8px; margin-bottom: 10px;"><br>
+                            <img src="QRIS_SahabatCFGF.jpeg" alt="QRIS" class="qris-img" style="max-width: 100%; border-radius: 8px; margin-bottom: 10px;"><br>
                             <button class="button btn-glow"><a href="QRIS_SahabatCFGF.jpeg" download="QRIS_ahabatCFGF.jpeg">
                                 Download QRIS</a>
                             </button><br>
@@ -491,8 +491,8 @@ async function checkout() {
                     showConfirmButton: true,
                     confirmButtonText: 'Lanjut ke WhatsApp',
                     confirmButtonColor: '#25D366',
-                    timer: 60000,
-                    timerProgressBar: true
+                    // timer: 60000,
+                    // timerProgressBar: true
                 }).then(() => {
                     // Logika reset keranjang bawaan Anda
                     cart = []; 
@@ -507,16 +507,16 @@ async function checkout() {
                     toggleCart();
                     
                     // Buka link WhatsApp
-                    // window.open(linkWA, '_blank');
+                    window.open(linkWA, '_blank');
 
-                    if (result.isConfirmed) {
+/*                    if (result.isConfirmed) {
                     // Jika user KLIK tombol "Lanjut ke WhatsApp" -> Buka di tab baru
                     window.open(linkWA, '_blank');
                     } else if (result.dismiss === Swal.DismissReason.timer) {
                     // Jika user DIAM SAJA sampai 5 detik habis -> Alihkan di tab yang sama (Anti-Blokir)
                     window.location.href = linkWA;
                     }
-
+*/
                 });
             } else {
                 Swal.fire({
