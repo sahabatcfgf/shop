@@ -464,6 +464,7 @@ async function checkout() {
                     title: 'Sukses!',
                     html: `
                         <div style="text-align: center;">
+                            <h2>TOTAL TAGIHAN Rp. ${totalAkhirPemesanan.toLocaleString('id-ID')}</h2>
                             <p>Scan QR berikut untuk pembayaran:</p>
                             <img src="QRIS_SahabatCFGF.jpeg" alt="QRIS" class="qris-img" style="max-width: 100%; border-radius: 8px; margin-bottom: 10px;"><br>
                             <button class="button btn-glow"><a href="QRIS_SahabatCFGF.jpeg" download="QRIS_ahabatCFGF.jpeg">
