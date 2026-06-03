@@ -34,7 +34,13 @@ function openAuth(type) {
 }
 function closeAuth() { document.getElementById('auth-modal').style.display = 'none'; }
 
-async function doRegister() {
+async function doRegister(event) {
+    // Mencegah form melakukan reload halaman otomatis
+    event.preventDefault(); 
+    
+    // Kode proses registrasi Anda (fetch data / kirim ke Google Apps Script) tetap di bawah sini
+    console.log("Form valid! Melanjutkan proses registrasi...");
+    
     let nama = document.getElementById('reg-nama').value;
     let email = document.getElementById('reg-email').value;
     let no_hp = document.getElementById('reg-nohp').value;
