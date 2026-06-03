@@ -467,7 +467,7 @@ async function checkout() {
                             <p>Scan kode berikut untuk pembayaran:</p>
                             <img src="QRIS_SahabatCFGF.jpeg" alt="QRIS" class="qris-img" style="max-width: 100%; border-radius: 8px; margin-bottom: 15px;">
                             <br>
-                            <a href="QRIS_SahabatCFGF.jpeg" download="QRIS_ahabatCFGF.jpeg" class="btn-glow">
+                            <a href="QRIS_SahabatCFGF.jpeg" download="QRIS_ahabatCFGF.jpeg" class="button btn-glow">
                             Download QRIS
                             </a>
                             <p style="margin-bottom: 5px;">Atau Transfer Bank:</p>
@@ -475,7 +475,7 @@ async function checkout() {
                                 <h4 style="margin: 0; color: #0056b3;">BCA</h4>
                                 <h3 style="margin: 5px 0;">7015306700</h3>
                                 <p style="margin: 0 0 10px 0;">a.n Fiky Alannuari</p>
-                                <button onclick="copyText('7015306700')" class="btn-ghost">
+                                <button onclick="copyText('7015306700')" class="button btn-ghost">
                                     📋 Salin Rekening
                                 </button>
                             </div>
