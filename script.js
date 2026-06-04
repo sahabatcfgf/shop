@@ -179,8 +179,8 @@ function renderGrid() {
             <div class="card animate__animated animate__fadeIn">
                 <img src="${gambarUtama}" onclick="openProductModal('${p.kode_produk}')" onerror="this.src='https://placehold.co/400?text=Error'">
                 <div class="card-body">
-                    <h3 onclick="openProductModal('${p.kode_produk}')">${p.nama_produk}</h3>
-                    <p style="font-size:0.85rem; color:#64748b; margin-bottom:8px;">${p.kategori} (${p.berat}g)</p>
+                    <h3 onclick="openProductModal('${p.kode_produk}')">${p.nama_produk} (${p.berat}g)</h3>
+                    <p style="font-size:0.85rem; color:#64748b; margin-bottom:8px;">${p.kategori}</p>
                     ${hargaTampil}
                     ${btnHtml}
                 </div>
