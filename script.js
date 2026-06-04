@@ -40,7 +40,8 @@ async function doRegister(event) {
     
     // Kode proses registrasi Anda (fetch data / kirim ke Google Apps Script) tetap di bawah sini
     console.log("Form valid! Melanjutkan proses registrasi...");
-    
+
+    /* --- SUBMIT FORM --- */
     let nama = document.getElementById('reg-nama').value;
     let email = document.getElementById('reg-email').value;
     let no_hp = document.getElementById('reg-nohp').value;
@@ -141,12 +142,21 @@ function renderCategories() {
         container.appendChild(btn);
     });
 }
-
 function renderGrid() {
     const grid = document.getElementById('product-grid');
     grid.innerHTML = '';
     
-    let filtered = activeCategory === 'Semua' ? products : products.filter(p => p.kategori === activeCategory);
+    // Ambil nilai dari kolom pencarian
+    let searchInput = document.getElementById('search-input');
+    let keyword = searchInput ? searchInput.value.toLowerCase() : '';
+    
+    // Filter berdasarkan Kategori DAN Keyword Pencarian
+    let filtered = products.filter(p => {
+        let matchCategory = (activeCategory === 'Semua') || (p.kategori === activeCategory);
+        let matchKeyword = p.nama_produk.toLowerCase().includes(keyword);
+        
+        return matchCategory && matchKeyword;
+    });
     
     if(filtered.length === 0) {
         grid.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:#999; padding:20px;">Produk tidak ditemukan.</p>`;
@@ -177,6 +187,43 @@ function renderGrid() {
             </div>`;
     });
 }
+
+
+// function renderGrid() {
+//     const grid = document.getElementById('product-grid');
+//     grid.innerHTML = '';
+    
+//     let filtered = activeCategory === 'Semua' ? products : products.filter(p => p.kategori === activeCategory);
+    
+//     if(filtered.length === 0) {
+//         grid.innerHTML = `<p style="grid-column:1/-1; text-align:center; color:#999; padding:20px;">Produk tidak ditemukan.</p>`;
+//         return;
+//     }
+
+//     filtered.forEach(p => {
+//         let isHabis = p.stok_produk < 1;
+//         let btnHtml = isHabis 
+//             ? `<button disabled class="btn-disabled">Stok Habis</button>` 
+//             : `<button onclick="openProductModal('${p.kode_produk}')" class="btn-glow w-100" style="margin-top:10px;">Beli Sekarang</button>`;
+
+//         let hargaTampil = `<span class="price-promo">Rp ${p.harga_asli.toLocaleString('id-ID')}</span>`;
+//         if (p.harga_promo && p.harga_promo > 0) {
+//             hargaTampil = `<span class="price-promo">Rp ${p.harga_promo.toLocaleString('id-ID')}</span> <span class="price-coret">Rp ${p.harga_asli.toLocaleString('id-ID')}</span>`;
+//         }
+//         let gambarUtama = (p.url_gambar && p.url_gambar.trim() !== '') ? p.url_gambar.split(',')[0].trim() : 'https://placehold.co/400?text=No+Image';
+
+//         grid.innerHTML += `
+//             <div class="card animate__animated animate__fadeIn">
+//                 <img src="${gambarUtama}" onclick="openProductModal('${p.kode_produk}')" onerror="this.src='https://placehold.co/400?text=Error'">
+//                 <div class="card-body">
+//                     <h3 onclick="openProductModal('${p.kode_produk}')">${p.nama_produk}</h3>
+//                     <p style="font-size:0.85rem; color:#64748b; margin-bottom:8px;">${p.kategori} (${p.berat}g)</p>
+//                     ${hargaTampil}
+//                     ${btnHtml}
+//                 </div>
+//             </div>`;
+//     });
+// }
 
 // --- MODAL PRODUK DETAIL ---
 function openProductModal(kode) {
