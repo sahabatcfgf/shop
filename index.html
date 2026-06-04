@@ -44,17 +44,15 @@
 
         <div class="container store-layout">
 
-            <div class="search-wrapper" style="margin-top: 20px; position: relative;">
-                <i class="fas fa-search" style="position: sticky; left: 15px; top: 50%; transform: translateY(-50%); color: #94a3b8;"></i>
-                <input type="text" id="search-input" class="input-form" placeholder="Cari produk..." style="padding-left: 40px; margin-bottom: 0;" oninput="renderGrid()">
-            </div>
-
             <div class="category-wrapper">
                 <div class="category-pills" id="category-container">
                 </div>
             </div>
 
-
+            <div class="search-wrapper" style="margin-top: 20px; position: relative;">
+                <i class="fas fa-search" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #94a3b8;"></i>
+                <input type="text" id="search-input" class="input-form" placeholder="Cari produk..." style="padding-left: 40px; margin-bottom: 0;" oninput="renderGrid()">
+            </div>
 
             <main class="product-content">
                 <div id="product-grid" class="grid"></div>
